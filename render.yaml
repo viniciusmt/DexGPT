@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: dex-analytics-gpt
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    plan: free
+    region: oregon
+    envVars:
+      - key: GOOGLE_CREDENTIALS
+        sync: false
+      - key: DEBUG
+        value: "false"
+      - key: PORT
+        value: "10000"

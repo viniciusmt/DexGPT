@@ -1,0 +1,703 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Dex Analytics API - GPT Compatible",
+    "description": "API para consultas em Google Analytics 4 (GA4) e Google Search Console otimizada para uso com GPTs personalizados",
+    "version": "2.0.0",
+    "contact": {
+      "name": "Dex Analytics Support",
+      "email": "support@dexanalytics.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://your-render-app.onrender.com",
+      "description": "Servidor de produção no Render"
+    }
+  ],
+  "paths": {
+    "/ga4/accounts": {
+      "get": {
+        "operationId": "listGA4Accounts",
+        "summary": "Lista contas do Google Analytics 4",
+        "description": "Retorna todas as contas e propriedades GA4 disponíveis para análise",
+        "tags": ["Google Analytics 4"],
+        "responses": {
+          "200": {
+            "description": "Lista de contas GA4 retornada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GA4AccountsResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ga4/query": {
+      "post": {
+        "operationId": "queryGA4Data",
+        "summary": "Consulta dados do Google Analytics 4",
+        "description": "Executa consultas customizadas no GA4 com suporte a filtros, dimensões e métricas",
+        "tags": ["Google Analytics 4"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GA4QueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Dados do GA4 retornados com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GA4QueryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parâmetros inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ga4/pivot": {
+      "post": {
+        "operationId": "queryGA4Pivot",
+        "summary": "Consulta pivot no Google Analytics 4",
+        "description": "Executa consultas pivot no GA4 para análise cruzada de dimensões",
+        "tags": ["Google Analytics 4"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GA4PivotRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Dados pivot do GA4 retornados com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GA4PivotResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parâmetros inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search-console/sites": {
+      "get": {
+        "operationId": "listSearchConsoleSites",
+        "summary": "Lista sites do Google Search Console",
+        "description": "Retorna todos os sites disponíveis no Search Console",
+        "tags": ["Google Search Console"],
+        "responses": {
+          "200": {
+            "description": "Lista de sites retornada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchConsoleSitesResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search-console/query": {
+      "post": {
+        "operationId": "querySearchConsoleData",
+        "summary": "Consulta dados do Google Search Console",
+        "description": "Executa consultas customizadas no Search Console com suporte a filtros e dimensões",
+        "tags": ["Google Search Console"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchConsoleQueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Dados do Search Console retornados com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchConsoleQueryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parâmetros inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Erro interno do servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/search-console/verify": {
+      "post": {
+        "operationId": "verifySearchConsoleSite",
+        "summary": "Verifica propriedade de site no Search Console",
+        "description": "Verifica se um site específico está disponível no Search Console",
+        "tags": ["Google Search Console"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "site_url": {
+                    "type": "string",
+                    "description": "URL do site a verificar",
+                    "example": "https://example.com"
+                  }
+                },
+                "required": ["site_url"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Verificação realizada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchConsoleVerifyResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parâmetros inválidos",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GA4AccountsResponse": {
+        "type": "object",
+        "properties": {
+          "sucesso": {
+            "type": "boolean",
+            "description": "Indica se a operação foi bem-sucedida"
+          },
+          "mensagem": {
+            "type": "string",
+            "description": "Mensagem descritiva do resultado"
+          },
+          "contas": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GA4Account"
+            }
+          }
+        }
+      },
+      "GA4Account": {
+        "type": "object",
+        "properties": {
+          "id_conta": {
+            "type": "string",
+            "description": "ID da conta GA4"
+          },
+          "nome_conta": {
+            "type": "string",
+            "description": "Nome da conta GA4"
+          },
+          "propriedades": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GA4Property"
+            }
+          }
+        }
+      },
+      "GA4Property": {
+        "type": "object",
+        "properties": {
+          "id_propriedade": {
+            "type": "string",
+            "description": "ID da propriedade GA4"
+          },
+          "nome_propriedade": {
+            "type": "string",
+            "description": "Nome da propriedade GA4"
+          },
+          "property_id": {
+            "type": "string",
+            "description": "ID da propriedade no formato usado pelas consultas"
+          },
+          "tipo": {
+            "type": "string",
+            "description": "Tipo da propriedade"
+          }
+        }
+      },
+      "GA4QueryRequest": {
+        "type": "object",
+        "properties": {
+          "property_id": {
+            "type": "string",
+            "description": "ID da propriedade GA4",
+            "example": "properties/254018746"
+          },
+          "dimensoes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Lista de dimensões para análise",
+            "example": ["country", "city"]
+          },
+          "metricas": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Lista de métricas para análise",
+            "example": ["sessions", "users"]
+          },
+          "data_inicio": {
+            "type": "string",
+            "description": "Data de início (formato: YYYY-MM-DD ou '7daysAgo')",
+            "example": "7daysAgo"
+          },
+          "data_fim": {
+            "type": "string",
+            "description": "Data de fim (formato: YYYY-MM-DD ou 'today')",
+            "example": "today"
+          },
+          "filtros": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GA4Filter"
+            },
+            "description": "Lista de filtros opcionais"
+          },
+          "limite": {
+            "type": "integer",
+            "description": "Número máximo de resultados",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 10000
+          }
+        },
+        "required": ["property_id", "dimensoes", "metricas"]
+      },
+      "GA4Filter": {
+        "type": "object",
+        "properties": {
+          "campo": {
+            "type": "string",
+            "description": "Campo para filtrar"
+          },
+          "valor": {
+            "type": "string",
+            "description": "Valor do filtro"
+          },
+          "condicao": {
+            "type": "string",
+            "enum": ["igual", "contem", "começa com", "termina com", "regex"],
+            "description": "Condição do filtro"
+          }
+        },
+        "required": ["campo", "valor", "condicao"]
+      },
+      "GA4PivotRequest": {
+        "type": "object",
+        "properties": {
+          "property_id": {
+            "type": "string",
+            "description": "ID da propriedade GA4",
+            "example": "properties/254018746"
+          },
+          "dimensao_principal": {
+            "type": "string",
+            "description": "Dimensão principal para o pivot",
+            "example": "country"
+          },
+          "dimensao_pivot": {
+            "type": "string",
+            "description": "Dimensão para cruzamento (pivot)",
+            "example": "deviceCategory"
+          },
+          "metricas": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Lista de métricas para análise",
+            "example": ["sessions"]
+          },
+          "data_inicio": {
+            "type": "string",
+            "description": "Data de início",
+            "example": "7daysAgo"
+          },
+          "data_fim": {
+            "type": "string",
+            "description": "Data de fim",
+            "example": "today"
+          },
+          "filtros": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GA4Filter"
+            }
+          },
+          "limite_linhas": {
+            "type": "integer",
+            "default": 30
+          }
+        },
+        "required": ["property_id", "dimensao_principal", "dimensao_pivot", "metricas"]
+      },
+      "GA4QueryResponse": {
+        "type": "object",
+        "properties": {
+          "sucesso": {
+            "type": "boolean"
+          },
+          "dados": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "total_resultados": {
+            "type": "integer"
+          },
+          "periodo": {
+            "type": "string"
+          },
+          "property_id": {
+            "type": "string"
+          }
+        }
+      },
+      "GA4PivotResponse": {
+        "type": "object",
+        "properties": {
+          "sucesso": {
+            "type": "boolean"
+          },
+          "resultado": {
+            "type": "string",
+            "description": "Resultado formatado da consulta pivot"
+          },
+          "periodo": {
+            "type": "string"
+          },
+          "property_id": {
+            "type": "string"
+          }
+        }
+      },
+      "SearchConsoleSitesResponse": {
+        "type": "object",
+        "properties": {
+          "sucesso": {
+            "type": "boolean"
+          },
+          "mensagem": {
+            "type": "string"
+          },
+          "sites": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SearchConsoleSite"
+            }
+          }
+        }
+      },
+      "SearchConsoleSite": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "URL do site"
+          },
+          "nivel_permissao": {
+            "type": "string",
+            "description": "Nível de permissão para o site"
+          }
+        }
+      },
+      "SearchConsoleQueryRequest": {
+        "type": "object",
+        "properties": {
+          "site_url": {
+            "type": "string",
+            "description": "URL do site para consulta",
+            "example": "https://example.com/"
+          },
+          "data_inicio": {
+            "type": "string",
+            "description": "Data de início (formato: YYYY-MM-DD ou '30daysAgo')",
+            "example": "30daysAgo"
+          },
+          "data_fim": {
+            "type": "string",
+            "description": "Data de fim (formato: YYYY-MM-DD ou 'today')",
+            "example": "today"
+          },
+          "dimensoes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["query", "page", "country", "device", "date"]
+            },
+            "description": "Dimensões para análise",
+            "example": ["query"]
+          },
+          "metrica_extra": {
+            "type": "boolean",
+            "description": "Se deve incluir métricas detalhadas",
+            "default": true
+          },
+          "limite": {
+            "type": "integer",
+            "description": "Número máximo de resultados",
+            "default": 100,
+            "minimum": 1,
+            "maximum": 25000
+          },
+          "query_filtro": {
+            "type": "string",
+            "description": "Filtro para queries (usa condição 'contém')"
+          },
+          "pagina_filtro": {
+            "type": "string",
+            "description": "Filtro para páginas (usa condição 'contém')"
+          },
+          "filtros": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SearchConsoleFilter"
+            }
+          }
+        },
+        "required": ["site_url"]
+      },
+      "SearchConsoleFilter": {
+        "type": "object",
+        "properties": {
+          "dimension": {
+            "type": "string",
+            "description": "Dimensão para filtrar"
+          },
+          "operator": {
+            "type": "string",
+            "enum": ["equals", "contains", "notEquals", "includingRegex", "excludingRegex"],
+            "description": "Operador do filtro"
+          },
+          "expression": {
+            "type": "string",
+            "description": "Expressão do filtro"
+          }
+        },
+        "required": ["dimension", "operator", "expression"]
+      },
+      "SearchConsoleQueryResponse": {
+        "type": "object",
+        "properties": {
+          "sucesso": {
+            "type": "boolean"
+          },
+          "site": {
+            "type": "string"
+          },
+          "periodo": {
+            "type": "string"
+          },
+          "dimensoes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "filtros_aplicados": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "total_resultados": {
+            "type": "integer"
+          },
+          "dados": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "SearchConsoleVerifyResponse": {
+        "type": "object",
+        "properties": {
+          "sucesso": {
+            "type": "boolean"
+          },
+          "site_url": {
+            "type": "string"
+          },
+          "nivel_permissao": {
+            "type": "string"
+          },
+          "mensagem": {
+            "type": "string"
+          },
+          "erro": {
+            "type": "string"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "erro": {
+            "type": "string",
+            "description": "Mensagem de erro"
+          },
+          "sucesso": {
+            "type": "boolean",
+            "enum": [false]
+          },
+          "codigo": {
+            "type": "string",
+            "description": "Código do erro"
+          }
+        },
+        "required": ["erro", "sucesso"]
+      }
+    },
+    "securitySchemes": {
+      "GoogleServiceAccount": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Autenticação via Google Service Account"
+      }
+    }
+  },
+  "security": [
+    {
+      "GoogleServiceAccount": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Google Analytics 4",
+      "description": "Operações relacionadas ao Google Analytics 4"
+    },
+    {
+      "name": "Google Search Console",
+      "description": "Operações relacionadas ao Google Search Console"
+    }
+  ]
+}
