@@ -1,7 +1,7 @@
 flask==3.0.3
 flask-cors==5.0.0
 google-analytics-data==0.18.12
-google-analytics-admin==0.22.17
+google-analytics-admin==0.24.1
 google-api-python-client==2.149.0
 google-auth==2.35.0
 google-auth-httplib2==0.2.0
