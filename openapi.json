@@ -11,7 +11,7 @@
   },
   "servers": [
     {
-      "url": "https://your-render-app.onrender.com",
+      "url": "https://dexgpt-7wp6.onrender.com",
       "description": "Servidor de produção no Render"
     }
   ],
