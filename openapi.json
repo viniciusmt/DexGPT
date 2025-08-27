@@ -461,21 +461,43 @@
           "sucesso": {
             "type": "boolean"
           },
+          "message": {
+            "type": "string",
+            "description": "Mensagem descritiva do resultado"
+          },
+          "resumo": {
+            "type": "object",
+            "properties": {
+              "total_sessoes": {
+                "type": "integer",
+                "description": "Total de sessões no período"
+              },
+              "periodo": {
+                "type": "string"
+              },
+              "property_id": {
+                "type": "string"
+              },
+              "top_paises": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "description": "Top 10 países com mais sessões"
+              }
+            }
+          },
           "dados": {
             "type": "array",
             "items": {
               "type": "object",
               "additionalProperties": true
-            }
+            },
+            "description": "Dados completos da consulta"
           },
           "total_resultados": {
             "type": "integer"
-          },
-          "periodo": {
-            "type": "string"
-          },
-          "property_id": {
-            "type": "string"
           }
         }
       },

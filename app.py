@@ -155,12 +155,21 @@ def query_ga4_data():
                         registro[cabecalho] = valores[i]
                     dados.append(registro)
         
+        # Criar summary para o GPT
+        total_sessions = sum(int(d.get('sessions', 0)) for d in dados if 'sessions' in d)
+        top_countries = dados[:10] if dados else []
+        
         return jsonify({
             "sucesso": True,
+            "resumo": {
+                "total_sessoes": total_sessions,
+                "periodo": f"{data_inicio} a {data_fim}",
+                "property_id": property_id,
+                "top_paises": top_countries
+            },
             "dados": dados,
             "total_resultados": len(dados),
-            "periodo": f"{data_inicio} a {data_fim}",
-            "property_id": property_id
+            "message": f"Consulta GA4 realizada com sucesso para {property_id}. Encontrados {len(dados)} resultados no período de {data_inicio} a {data_fim}."
         })
         
     except Exception as e:

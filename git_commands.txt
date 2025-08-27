@@ -1,0 +1,11 @@
+## Comandos para executar após criar o repositório no GitHub:
+
+# Substitua SEU_USUARIO pelo seu username do GitHub
+git remote add origin https://github.com/SEU_USUARIO/DexGPT.git
+git branch -M main
+git push -u origin main
+
+## Exemplo:
+# git remote add origin https://github.com/viniciusmt/DexGPT.git
+# git branch -M main
+# git push -u origin main
